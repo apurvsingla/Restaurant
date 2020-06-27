@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardBody, CardText, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import dateFormat from 'dateformat';
-
+import { Link } from 'react-router-dom';
 
 
 function RenderCommentsForSelectedDish({comments}){
@@ -66,9 +66,26 @@ const DishDetail = (props) => {
     }
     
     return (
-        <div className='row'>
-            <RenderDish dish={props.dish} />
-            <RenderCommentsForSelectedDish comments={props.dish.comments} />
+        <div className="container">
+
+            <div className="row">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to='/menu'>Menu</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                
+            </div>
+
+            <div className='row'>
+                <RenderDish dish={props.dish} />
+                <RenderCommentsForSelectedDish comments={props.comments} />
+            </div>
         </div>
     )
 }

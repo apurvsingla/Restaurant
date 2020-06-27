@@ -16,18 +16,16 @@ function Footer(props) {
                         </ul>
                     </div>
                     <div className="col-7 col-sm-5">
-                        <h5>Our Address</h5>
+                    <h5>Our Address</h5>
                         <address>
-                        121, Clear Water Bay Road<br />
-                        Clear Water Bay, Kowloon<br />
-                        HONG KONG<br />
-                        <i className="fa fa-phone fa-lg"></i>: +852 1234 5678<br />
-                        <i className="fa fa-fax fa-lg"></i>: +852 8765 4321<br />
-                        <i className="fa fa-envelope fa-lg"></i>: <a href="mailto:confusion@food.net">
-                            confusion@food.net</a>
+                        26, Ward No. 10,<br />
+                        Sarafa bazaar, Nissing<br/>Karnal (132024) <br />
+                        <i className="fa fa-phone"></i>: +91 97296-68400<br />
+                        <i className="fa fa-fax"></i>: +91 80530-64007<br />
+                        <i className="fa fa-envelope"></i>: <a href="mailto:apurvsingla@gmail.com">apurvsingla@gmail.com</a>
                         </address>
                     </div>
-                    <div className="col-12 col-sm-4 align-self-center">
+                    <div className="col-12 col-sm-4 aligFn-self-center">
                         <div className="text-center">
                             <a className="btn btn-social-icon btn-google" href="http://google.com/+"><i className="fa fa-google-plus"></i></a>
                             <a className="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i className="fa fa-facebook"></i></a>
@@ -40,7 +38,7 @@ function Footer(props) {
                 </div>
                 <div className="row justify-content-center">             
                     <div className="col-auto">
-                        <p>© Copyright 2018 Ristorante Con Fusion</p>
+                        <p>© Copyright 2020 Ristorante Con Fusion</p>
                     </div>
                 </div>
             </div>
