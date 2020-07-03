@@ -1,84 +1,62 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem,
-    Button, Row, Col, Label } from 'reactstrap';
-import { Control, Form, Errors, actions } from 'react-redux-form';
+import React, { Component } from 'react';
+import { Label, Col, Button, Row } from 'reactstrap';
+
+import { Control, Form, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
-const minLength = (len) => (val) => (val) && (val.length >= len);
+const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
+
 class Contact extends Component {
-        
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    
-
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        console.log("Current State is: " + JSON.stringify(values));
+        alert("Current State is: " + JSON.stringify(values));
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedbackForm();
-        // event.preventDefault();
+
     }
 
-
-
-
-
-    render(){
-        return(
-            <div className="container">
-
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem>
-                            <Link to='/home'>Home</Link>
-                        </BreadcrumbItem>
-                        <BreadcrumbItem active>Contact Us</BreadcrumbItem>
-                    </Breadcrumb>
-                        <div className="col-12">
-                            <h3>Contact Us</h3>
-                            <hr />
-                        </div>
-                    
-                </div>
-
+    render() {
+        return (
+            <div className="container" >
                 <div className="row row-content">
                     <div className="col-12">
-                    <h3>Location Information</h3>
+                        <h3>Location Information</h3>
                     </div>
                     <div className="col-12 col-sm-4 offset-sm-1">
-                            <h5>Our Address</h5>
-                            <address>
-                            26, Ward No. 10,<br />
-                            Sarafa bazaar, Nissing<br/>Karnal (132024) <br />
-                            <i className="fa fa-phone"></i>: +91 97296-68400<br />
-                            <i className="fa fa-fax"></i>: +91 80530-64007<br />
-                            <i className="fa fa-envelope"></i>: <a href="mailto:apurvsingla@gmail.com">apurvsingla@gmail.com</a>
-                            </address>
+                        <h5>Our Address</h5>
+                        <address>
+                            Nissing(132024), karnal, Haryana<br />
+                            <i className="fa fa-phone"></i>: +91-9729668400<br />
+                            <i className="fa fa-fax"></i>: +91-8053064007<br />
+                            <i className="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">apurvsingla@gmail.com</a>
+                        </address>
                     </div>
                     <div className="col-12 col-sm-6 offset-sm-1">
                         <h5>Map of our Location</h5>
                     </div>
                     <div className="col-12 col-sm-11 offset-sm-1">
                         <div className="btn-group" role="group">
-                            <a role="button" className="btn btn-primary" href="tel:+919729668400"><i className="fa fa-phone"></i> Call</a>
+                            <a role="button" className="btn btn-primary" href="tel:+91-9729668400"><i className="fa fa-phone"></i> Call</a>
                             <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
                             <a role="button" className="btn btn-success" href="apurvsingla@gmail.com"><i className="fa fa-envelope-o"></i> Email</a>
                         </div>
                     </div>
                 </div>
-
-                <div className="row row-contnet">
+                <div className="row row-content">
                     <div className="col-12">
-                        <h3 className="mb-4 mt-2">Send us your Feedback</h3>
+                        <h3>Send us Your Feedback</h3>
                     </div>
                     <div className="col-12 col-md-9">
-                    <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
+                        <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -87,16 +65,18 @@ class Contact extends Component {
                                         className="form-control"
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }} />
-                                        <Errors 
+                                        }}
+                                    />
+                                    <Errors
                                         className="text-danger"
-                                        model=".firstname" 
+                                        model=".firstname"
                                         show="touched"
                                         messages={{
-                                            required: "Required",
-                                            minLength: "Must be greater than 2 characters",
-                                            maxLength: "Must be 15 characters or less"
-                                        }} />
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -105,30 +85,32 @@ class Contact extends Component {
                                     <Control.text model=".lastname" id="lastname" name="lastname"
                                         placeholder="Last Name"
                                         className="form-control"
-                                         validators={{
+                                        validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }} />
-                                        <Errors 
+                                        }}
+                                    />
+                                    <Errors
                                         className="text-danger"
-                                        model=".lastname" 
+                                        model=".lastname"
                                         show="touched"
                                         messages={{
-                                            required: "Required",
-                                            minLength: "Must be greater than 2 characters",
-                                            maxLength: "Must be 15 characters or less"
-                                        }} />
+                                            required: 'Required',
+                                            minLength: 'Must be greater than 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
                                 <Col md={10}>
-                                <Control.text model=".telnum" id="telnum" name="telnum"
+                                    <Control.text model=".telnum" id="telnum" name="telnum"
                                         placeholder="Tel. Number"
                                         className="form-control"
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15), isNumber
                                         }}
-                                         />
+                                    />
                                     <Errors
                                         className="text-danger"
                                         model=".telnum"
@@ -139,7 +121,7 @@ class Contact extends Component {
                                             maxLength: 'Must be 15 numbers or less',
                                             isNumber: 'Must be a number'
                                         }}
-                                     />
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -151,7 +133,7 @@ class Contact extends Component {
                                         validators={{
                                             required, validEmail
                                         }}
-                                         />
+                                    />
                                     <Errors
                                         className="text-danger"
                                         model=".email"
@@ -160,21 +142,20 @@ class Contact extends Component {
                                             required: 'Required',
                                             validEmail: 'Invalid Email Address'
                                         }}
-                                     />
+                                    />
                                 </Col>
                             </Row>
-                            
                             <Row className="form-group">
-                                <Col md={{size: 6, offset: 2}}>
-                                    <div className="form-check">
+                                <Col md={{ size: 6, offset: 2 }}>
+                                    <div className="form-checked">
                                         <Label check>
-                                            <Control.checkbox model=".agree" name="agree"className="form-check-input"
-                                                 /> {' '}
-                                                <strong>May we contact you?</strong>
+                                            <Control.checkbox model=".agree" name="agree"
+                                                className="form-checked-input" />{' '}
+                                            <strong>May we contact you?</strong>
                                         </Label>
                                     </div>
                                 </Col>
-                                <Col md={{size: 3, offset: 1}}>
+                                <Col md={{ size: 3, offset: 1 }}>
                                     <Control.select model=".contactType" name="contactType"
                                         className="form-control">
                                         <option>Tel.</option>
@@ -183,7 +164,9 @@ class Contact extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={2}>Your Feedback</Label>
+                                <Label htmlFor="message" md={2}>
+                                    Your Feedback
+                                </Label>
                                 <Col md={10}>
                                     <Control.textarea model=".message" id="message" name="message"
                                         rows="12"
@@ -191,15 +174,16 @@ class Contact extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col md={{size:10, offset: 2}}>
+                                <Col md={{ size: 10, offset: 2 }}>
                                     <Button type="submit" color="primary">
-                                    Send Feedback
+                                        Send Feedback
                                     </Button>
                                 </Col>
                             </Row>
                         </Form>
                     </div>
                 </div>
+
             </div>
         );
     }

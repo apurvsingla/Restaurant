@@ -1,37 +1,59 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
-
-function RenderLeader({leader}) {
-    return(
-        <Media>
-            <Media left href="#">
-                <Media object src={leader.image} alt="Generic placeholder image" height="100" width="120"  className="mr-4 mb-4" />
-                
-            </Media>
-            <Media body className="mb-4">
-              <Media heading>
-                {leader.name}
-              </Media>
-              <Media className="mb-2"> 
-                    {leader.designation}
-                </Media>
-              {leader.description}
-            </Media>
-          </Media>
-    );
-  }
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { Fade, Stagger } from 'react-animation-components';
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const RenderLeader = ({ leader, isLoading, errMess }) => {
         return (
-            <RenderLeader leader={leader} />
+            <Media tag="li">
+                <Media left middle>
+                    <Media object src={baseUrl + leader.image} alt={leader.name} />
+                </Media>
+                <Media body className="ml-5">
+                    <Media heading>
+                        {leader.name}
+                    </Media>
+                    <h6>{leader.designation}</h6>
+                    <p>{leader.description}</p>
+                </Media>
+            </Media>
         );
-    });
+    }
 
-    return(
+
+
+    const Leaders = ({ leaders, isLoading, errMess }) => {
+        if (isLoading) {
+            return (
+                <Loading />
+            );
+        } else if (errMess) {
+            return (
+                <h4>{errMess}</h4>
+            );
+        }
+        else
+            return (
+                <Stagger in>
+                    {leaders.map((leader) => {
+                        return (
+                            <Fade in>
+                                <RenderLeader leader={leader} />
+                            </Fade>
+                        );
+                    })}
+                </Stagger>
+            );
+    }
+
+
+
+
+    return (
         <div className="container">
             <div className="row">
                 <Breadcrumb>
@@ -41,7 +63,7 @@ function About(props) {
                 <div className="col-12">
                     <h3>About Us</h3>
                     <hr />
-                </div>                
+                </div>
             </div>
             <div className="row row-content">
                 <div className="col-12 col-md-6">
@@ -86,12 +108,16 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
+
                     <Media list>
-                        {leaders}
+
+                        <Leaders leaders={props.leaders.leaders} isLoading={props.leaders.isLoading} errMess={props.leaders.errMess} />
+
                     </Media>
+
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
 
